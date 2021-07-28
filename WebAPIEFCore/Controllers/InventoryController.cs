@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebAPIEFCore.Models;
 using WebAPIEFCore.Repository;
+using System;
 
 namespace WebAPIEFCore.Controllers
 {
@@ -19,35 +20,72 @@ namespace WebAPIEFCore.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_InventoryRepository.GetAll());
+            try
+            {
+                return Ok(_InventoryRepository.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Error");
+            }
         }
 
         // GET api/<InventoryController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok(_InventoryRepository.GetInventoryById(id));
+            try
+            {
+                return Ok(_InventoryRepository.GetInventoryById(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Error");
+            }
         }
 
         // POST api/<InventoryController>
         [HttpPost]
         public IActionResult Post(Inventory inventory)
         {
-            return Created("", _InventoryRepository.AddInventory(inventory));
+            try
+            {
+                return Created("", _InventoryRepository.AddInventory(inventory));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Error");
+            }
+
         }
 
         // PUT api/<InventoryController>/5
         [HttpPut]
         public IActionResult Put(Inventory inventory)
         {
-            return Accepted("", _InventoryRepository.UpdateInventory(inventory));
+            try
+            {
+                return Accepted("", _InventoryRepository.UpdateInventory(inventory));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Error");
+            }
+
         }
 
         // DELETE api/<InventoryController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            return Ok(_InventoryRepository.DeleteInventory(id));
+            try
+            {
+                return Ok(_InventoryRepository.DeleteInventory(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Error");
+            }
         }
     }
 }
